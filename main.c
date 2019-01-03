@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 23:38:30 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 00:24:44 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,9 +106,9 @@ int main(int argc, char **argv, char **environ)
 			args = format_args(args, env);
 			run = execute(args, builtin_lst, builtin_fct, &env);
 			i++;
-			free(args);
+			free_tab(args);
 		}
-		free(cmd);
-		free(line);
+		free_tab(cmd);
+		ft_strdel(&line);
 	}
 }

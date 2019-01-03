@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 17:58:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 20:11:57 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 00:00:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ char	**ft_addentry(char **tab, int size, char *str)
 	{
 		if (!(newtab[i] = ft_strdup(tab[i])))
 			return (NULL);
-		free(tab[i]);
+		ft_strdel(&tab[i]);
 		i++;
 	}
 	if (!(newtab[i] = ft_strdup(str)))
@@ -56,13 +56,13 @@ char	**ft_addentry(char **tab, int size, char *str)
 
 void	ft_delentry(char ***tab, int pos)
 {
-	free((*tab)[pos]);
+	ft_strdel(&((*tab)[pos]));
 	while ((*tab)[pos + 1])
 	{
 		(*tab)[pos] = (*tab)[pos + 1];
 		pos++;
 	}
-	(*tab)[pos] = NULL;
+	ft_strdel(&((*tab)[pos]));
 }
 
 char	*ft_strjoin3(char *s1, char *s2, char *s3)

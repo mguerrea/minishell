@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:46:04 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 23:06:43 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 00:05:04 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,5 +38,6 @@ void	error_cd(char *errors);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
 void	error_cmd(char *str);
 char	**format_args(char **args, char **environ);
+void	free_tab(char **tab);
 
 #endif

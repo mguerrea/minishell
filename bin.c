@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:18:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 23:42:18 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 00:05:34 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	find_bin_path(char **environ, char **args)
 			return ;
 		if (execve(path, args, environ) >= 0)
 		{
-			free(path);
+			ft_strdel(&path);
 			break ;
 		}
-		free(path);
+		ft_strdel(&path);
 		i++;
 		}
 		if (path_lst[i] == NULL)
 			error_cmd(args[0]);
-		free(path_lst);
+		free_tab(path_lst);
 }
 
 int		launch_bin(char **args, char ***environ)

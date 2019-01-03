@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 23:41:33 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 00:11:31 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,9 +55,9 @@ char **format_args(char **args, char **environ)
 	while (args[i])
 	{
 		tmp = ft_strtrim(args[i]);
-		free(args[i]);
+		ft_strdel(&args[i]);
 		args[i] = ft_trimquotes(tmp);
-		free(tmp);
+		ft_strdel(&tmp);
 		if (args[i][0] == '$')
 			args[i] = format_var(args[i] + 1, environ);
 		i++;

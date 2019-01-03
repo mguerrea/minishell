@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:54:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 18:17:55 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/03 23:41:00 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,36 @@ int ft_cd(char **args, char ***environ)
 {
 	char *dir;
 	char buf[PATH_MAX];
+	char *home;
 
 	if (args[1] == NULL)
 	{
-		if (!(dir = getenv("HOME")))
+		if (!(dir = ft_getenv(*environ, "HOME")[0]))
 			ft_putendl("cd: HOME not set");
 	}
 	else if (ft_strcmp(args[1], "-") == 0)
 	{
-		if (!(dir = getenv("OLDPWD")))
+		if (!(dir = ft_getenv(*environ, "OLDPWD")[0]))
 			ft_putendl("cd: OLDPWD not set");
+		else
+			ft_putendl(dir);
+	}
+	else if (args[1][0] == '~')
+	{
+		if(!(home = ft_getenv(*environ, "HOME")[0]))
+			ft_putendl("cd: HOME not set");
+		dir = ft_strjoin(home, args[1] + 1);
+		free(home);
 	}
 	else
-		dir = args[1];
-	ft_setvar(*environ, "OLDPWD", getenv("PWD"));
+		dir = ft_strdup(args[1]);
+	getcwd(buf, PATH_MAX);
+	ft_setvar(*environ, "OLDPWD", buf);
 	if (dir && chdir(dir) != 0)
-		ft_putendl_fd("cd : error", 2);
+		error_cd(dir);
 	getcwd(buf, PATH_MAX);
 	ft_setvar(*environ, "PWD", buf);
+	free (dir);
 	return (1);
 }
 
@@ -48,6 +60,11 @@ int	ft_echo(char **args, char ***environ)
 	int i;
 	int n;
 
+	if (args[1] == NULL)
+	{
+		ft_putchar('\n');
+		return (1);
+	}
 	n = ft_strcmp(args[1], "-n");
 	i = 1;
 	if (n == 0)
@@ -74,8 +91,5 @@ int ft_env(char **args, char ***environ)
 		ft_putendl((*environ)[i]);
 		i++;
 	}
-//	printf("i = %d\n", i);
-//	ft_putstr_color(*environ[25], "red");
-//	printf("environ = %s", environ[23]);
 	return (1);
 }

@@ -6,32 +6,11 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 16:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 18:19:48 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/03 23:34:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-char	**ft_addentry(char **tab, int size, char *str)
-{
-	char **newtab;
-	int i;
-
-	i = 0;
-//	printf("size = %d\n", size);
-	if (!(newtab = (char **)malloc(sizeof(char *) * (size + 2))))
-		return (NULL);
-	while (tab[i])
-	{
-		if (!(newtab[i] = ft_strdup(tab[i])))
-			return (NULL);
-		i++;
-	}
-	if (!(newtab[i] = ft_strdup(str)))
-		return (NULL);
-	newtab[i + 1] = NULL;
-	return (newtab);
-}
 
 char	**ft_setvar(char **environ, char *var, char *value)
 {
@@ -56,8 +35,45 @@ char	**ft_setvar(char **environ, char *var, char *value)
 int		ft_setenv(char **args, char ***environ)
 {
 	if (args[1] && args[2])
-		*environ = ft_setvar(*environ, args[1], args[2]);
+	{
+		if (ft_strchr(args[1], '='))
+			ft_putendl("invalid name, cannot contain '='");
+		else
+			*environ = ft_setvar(*environ, args[1], args[2]);
+	}
 	else
 		ft_putendl("too few arguments");
 	return (1);
+}
+
+int		ft_unsetenv(char **args, char ***environ)
+{
+	int i;
+
+	i = 0;
+	if (args[1])
+	{
+		while ((*environ)[i] && ft_strncmp((*environ)[i], args[1], ft_strlen(args[1])))
+			i++;
+		if ((*environ)[i])
+			ft_delentry(environ, i);
+	}
+	return (1);
+}
+
+char **ft_getenv(char **environ, char *var)
+{
+	int i;
+	char **lst;
+	int start;
+	int size;
+	int end;
+
+	i = 0;
+	//*lst = NULL;
+	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
+		i++;
+	if (environ[i])
+		lst = ft_strsplit(ft_strchr(environ[i], '=') + 1, ':');
+	return (lst);
 }

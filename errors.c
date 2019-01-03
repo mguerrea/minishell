@@ -1,28 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   print.c                                            :+:      :+:    :+:   */
+/*   errors.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/01/03 14:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 22:39:06 by mguerrea         ###   ########.fr       */
+/*   Created: 2019/01/03 19:56:10 by mguerrea          #+#    #+#             */
+/*   Updated: 2019/01/03 21:22:41 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_prompt(char **environ)
+void	error_cd(char *errors)
 {
-	char buf[PATH_MAX];
-	char *home;
-	int len;
+		ft_putstr_fd("cd: ", 2);
+		ft_putstr_fd(errors, 2);
+		ft_putstr_fd(": No such file or directory\n", 2);
+}
 
-	getcwd(buf, PATH_MAX);
-	home = ft_getenv(environ, "HOME")[0];
-	len = (home) ? ft_strlen(home) : 0;
-	if (home)
-		ft_putchar('~');
-	ft_putstr(buf + len);
-	ft_putstr("$> ");
+void	error_cmd(char *str)
+{
+	ft_putstr_fd(str, 2);
+	ft_putendl_fd(": command not found", 2);
 }

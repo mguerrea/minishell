@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 00:24:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 17:38:57 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,11 +99,20 @@ int main(int argc, char **argv, char **environ)
 		get_next_line(0, &line);
 		while (wrong_quote(line))
 			line = ask_newline(line);
-		cmd = ft_strsplit(line, ';');
+		cmd = split_quotes(line, ';');
 		while (cmd[i])
 		{
-			args = ft_strsplit(cmd[i], ' ');
+		//	ft_putstr_color("cmd = ", "blue");
+		//	ft_putendl(cmd[i]);
+			args = split_quotes(cmd[i], ' ');
 			args = format_args(args, env);
+		/*	int j = 0;
+			while (args[j])
+			{
+				ft_putstr_color("arg = ", "red");
+				ft_putendl(args[j]);
+				j++;
+			}*/
 			run = execute(args, builtin_lst, builtin_fct, &env);
 			i++;
 			free_tab(args);
@@ -111,4 +120,6 @@ int main(int argc, char **argv, char **environ)
 		free_tab(cmd);
 		ft_strdel(&line);
 	}
+	free_tab(env);
+	return (0);
 }

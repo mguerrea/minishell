@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:54:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/03 23:41:00 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 18:21:46 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,18 +40,23 @@ int ft_cd(char **args, char ***environ)
 	else
 		dir = ft_strdup(args[1]);
 	getcwd(buf, PATH_MAX);
+	ft_putstr_color("oui ?\n", "red");
 	ft_setvar(*environ, "OLDPWD", buf);
+	ft_putstr_color("setvar ?\n", "red");
 	if (dir && chdir(dir) != 0)
 		error_cd(dir);
 	getcwd(buf, PATH_MAX);
 	ft_setvar(*environ, "PWD", buf);
-	free (dir);
+	ft_putstr_color("setvar 2 ?\n", "red");
+	if (dir)
+		ft_strdel(&dir);
 	return (1);
 }
 
 int ft_exit(char **args, char ***environ)
 {
 	(void)args;
+	(void)environ;
 	return (0);
 }
 
@@ -88,6 +93,7 @@ int ft_env(char **args, char ***environ)
 	i = 0;
 	while ((*environ)[i])
 	{
+	//	ft_putnbr(i);
 		ft_putendl((*environ)[i]);
 		i++;
 	}

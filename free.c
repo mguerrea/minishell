@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 00:03:40 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 00:04:52 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 12:57:01 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ void	free_tab(char **tab)
 	int i;
 
 	i = 0;
+	if (!tab)
+		return ;
 	while (tab[i])
 	{
 		ft_strdel(&(tab[i]));

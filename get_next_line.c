@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/09/23 16:28:34 by mguerrea          #+#    #+#             */
-/*   Updated: 2018/11/26 19:07:55 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 12:28:13 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,10 @@ char	*ft_save(char *str, char *perm)
 	if (perm && ft_strchr(perm, '\n'))
 		return (ft_strjoin(ft_strchr(perm, '\n') + 1, str));
 	if (ft_strchr(str, '\n'))
+	{
+		free(perm);
 		return (ft_strdup(ft_strchr(str, '\n') + 1));
+	}
 	return (ft_strnew(0));
 }
 

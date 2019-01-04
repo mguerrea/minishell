@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:18:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 00:05:34 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/04 16:09:16 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	find_bin_path(char **environ, char **args)
 	char *path;
 
 	i = 0;
+	
 		path_lst = ft_getenv(environ, "PATH");
 		while (path_lst[i])
 		{
@@ -45,6 +46,8 @@ int		launch_bin(char **args, char ***environ)
 	int i;
 
 	i = 0;
+	if (!args[0][0])
+		return (1);
 	pid = fork();
 	if (pid == -1)
 	{

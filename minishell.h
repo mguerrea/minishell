@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:46:04 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:46:37 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 18:33:40 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include <sys/stat.h>
+#include <sys/types.h>
+#include <pwd.h>
+#include <uuid/uuid.h>
 
 #define NB_BUILTIN 6
 
@@ -36,17 +39,16 @@ char	**ft_addentry(char **tab, int size, char *str);
 void	ft_delentry(char ***tab, int pos);
 int		ft_unsetenv(char **args, char ***environ);
 int		launch_bin(char **args, char ***envriton);
-void	error_cd(char *errors);
 char	*ft_strjoin3(char *s1, char *s2, char *s3);
-void	error_cmd(char *str);
-char	**format_args(char **args, char **environ);
+void	format_args(char ***args, char **environ);
 void	free_tab(char **tab);
 char	**split_quotes(char *line, char c);
-void 	error_file(char *errors);
+void 	error_file(char *cmd, char *errors);
 char	**init_shell(char **environ, t_built_in *builin_fct);
 void	fill_built(t_built_in *builtin_fct);
 char	*get_cmd(char **env);
 void	malloc_error(void);
-void	error_rights(char *str);
+void	error_rights(char *cmd, char *str);
+void	error_cmd(char *str);
 
 #endif

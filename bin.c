@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:18:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:56:36 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 17:38:23 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void find_bin_path(char **environ, char **args)
 
 	i = 0;
 	if (!(path_lst = ft_getenv(environ, "PATH")))
-		error_file(args[0]);
+		error_file(NULL, args[0]);
 	while (path_lst[i])
 	{
 		if (!(path = ft_strjoin3(path_lst[i], "/", args[0])))
@@ -29,7 +29,7 @@ void find_bin_path(char **environ, char **args)
 		if (lstat(path, &sb) == 0)
 		{
 			if (access(path, X_OK) != 0)
-				error_rights(path);
+				error_rights(NULL, path);
 			else
 				execve(path, args, environ);
 			ft_strdel(&path);
@@ -53,10 +53,7 @@ int launch_bin(char **args, char ***environ)
 		return (1);
 	pid = fork();
 	if (pid == -1)
-	{
 		ft_putendl_fd("fork error", 2);
-		return (1);
-	}
 	else if (pid == 0)
 	{
 		if (ft_strchr(args[0], '/'))
@@ -66,11 +63,9 @@ int launch_bin(char **args, char ***environ)
 		}
 		else
 			find_bin_path(*environ, args);
-		exit(0);
+		exit (1);
 	}
 	else
-	{
 		wait(NULL);
-		return (1);
-	}
+	return (1);
 }

@@ -6,21 +6,19 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:56:10 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:46:23 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 17:37:28 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void 	error_file(char *errors)
+void	error_file(char *cmd, char *errors)
 {
-	ft_putstr_fd(errors, 2);
-	ft_putstr_fd(": No such file or directory\n", 2);
-}
-
-void	error_cd(char *errors)
-{
-		ft_putstr_fd("cd: ", 2);
+	if (cmd)
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+	}
 		ft_putstr_fd(errors, 2);
 		ft_putstr_fd(": No such file or directory\n", 2);
 }
@@ -31,8 +29,13 @@ void	error_cmd(char *str)
 	ft_putendl_fd(": command not found", 2);
 }
 
-void	error_rights(char *str)
+void	error_rights(char *cmd, char *str)
 {
+	if (cmd)
+	{
+		ft_putstr_fd(cmd, 2);
+		ft_putstr_fd(": ", 2);
+	}
 	ft_putstr_fd(str, 2);
 	ft_putendl_fd(": Permission denied", 2);
 }

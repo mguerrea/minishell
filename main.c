@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:09:03 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 18:16:10 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int execute(char **args, const char **builtin_lst, t_built_in *builtin_fct, char
 	return (launch_bin(args, environ));
 }
 
-int	run(char **env, t_built_in *builtin_fct, const char **builtin_lst)
+int	run(char ***env, t_built_in *builtin_fct, const char **builtin_lst)
 {
 	char *line;
 	char **args;
@@ -43,13 +43,13 @@ int	run(char **env, t_built_in *builtin_fct, const char **builtin_lst)
 	while (run)
 	{
 		i = 0;
-		line = get_cmd(env);
+		line = get_cmd(*env);
 		cmd = split_quotes(line, ';');
 		while (cmd[i])
 		{
 			args = split_quotes(cmd[i], ' ');
-			args = format_args(args, env);
-			run = execute(args, builtin_lst, builtin_fct, &env);
+			format_args(&args, *env);
+			run = execute(args, builtin_lst, builtin_fct, env);
 			i++;
 			free_tab(args);
 		}
@@ -73,7 +73,7 @@ int main(int argc, char **argv, char **environ)
 	};
 
 	env = init_shell(environ, builtin_fct);
-	run(env, builtin_fct, builtin_lst);
+	run(&env, builtin_fct, builtin_lst);
 	free_tab(env);
 	return (0);
 }

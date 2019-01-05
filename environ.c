@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 16:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 18:19:26 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 13:09:14 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**ft_setvar(char **environ, char *var, char *value)
 	ft_strcat(str, var);
 	ft_strcat(str, "=");
 	ft_strcat(str, value);
+//	printf("i = %d\n", i);
 	if (!environ[i])
 		environ = ft_addentry(environ, i, str);
 	else
@@ -71,10 +72,11 @@ char **ft_getenv(char **environ, char *var)
 	int end;
 
 	i = 0;
-//	lst[0] = NULL;
+	lst = NULL;
 	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
 		i++;
 	if (environ[i])
 		lst = ft_strsplit(ft_strchr(environ[i], '=') + 1, ':');
+//	printf("lst ?\n");
 	return (lst);
 }

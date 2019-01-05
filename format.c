@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 00:11:31 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 13:37:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,11 +37,12 @@ char *ft_trimquotes(char *s)
 
 char *format_var(char *var, char **environ)
 {
-	char *value;
+	char **value;
 
-	value = ft_getenv(environ, var)[0];
+	if (!(value = ft_getenv(environ, var)))
+		return (NULL);
 //	free(var);
-	var = value;
+	var = value[0];
 	return (var);
 
 }

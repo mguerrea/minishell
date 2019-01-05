@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 17:58:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 13:22:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 16:22:14 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,10 +38,12 @@ char	**ft_addentry(char **tab, int size, char *str)
 	int i;
 
 	i = 0;
+//	ft_putstr_color(str, "blue");
 	if (!(newtab = (char **)malloc(sizeof(char *) * (size + 2))))
 		return (NULL);
 	while (tab[i])
 	{
+	//	printf("tab[%d] = %s\n", i, tab[i]);
 		if (!(newtab[i] = ft_strdup(tab[i])))
 			return (NULL);
 		i++;
@@ -81,3 +83,26 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	str = ft_strcat(str, s3);
 	return (str);
 }
+
+/*char *get_line(int fd)
+{
+	char *line;
+	char buf[BUFF_SIZE];
+	t_list *list;
+	int ret;
+	char *tmp;
+
+	line = NULL;
+	while ((ret = read(fd, buf, BUFF_SIZE)))
+	{
+		if (ret == -1)
+			return (NULL);
+		buf[ret] = '\0';
+		ft_lstaddback(&list, ft_lstnew(buf, ret + 1));
+		if (ft_strchr(buf, '\n'))
+			break ;
+	}
+	tmp = ft_list_to_str(list);
+	line = ft_strnew(ft_strchr(tmp, '\n') - tmp);
+	line = ft_strdup()
+}*/

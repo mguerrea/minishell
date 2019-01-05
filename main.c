@@ -6,23 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 17:38:57 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 16:09:03 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft/libft.h"
 #include "get_next_line.h"
 #include "minishell.h"
-
-void	fill_built(t_built_in *builtin_fct)
-{
-	builtin_fct[0] = ft_cd;
-	builtin_fct[1] = ft_exit;
-	builtin_fct[2] = ft_echo;
-	builtin_fct[3] = ft_env;
-	builtin_fct[4] = ft_setenv;
-	builtin_fct[5] = ft_unsetenv;
-}
 
 int execute(char **args, const char **builtin_lst, t_built_in *builtin_fct, char ***environ)
 {
@@ -41,44 +31,37 @@ int execute(char **args, const char **builtin_lst, t_built_in *builtin_fct, char
 	return (launch_bin(args, environ));
 }
 
-int	wrong_quote(char *str)
+int	run(char **env, t_built_in *builtin_fct, const char **builtin_lst)
 {
+	char *line;
+	char **args;
+	char **cmd;
+	int run;
 	int i;
-	int count;
 
-	i = 0;
-	count = 0;
-	while (str[i])
+	run = 1;
+	while (run)
 	{
-		i++;
-		if (str[i] == '"')
-			count++;
+		i = 0;
+		line = get_cmd(env);
+		cmd = split_quotes(line, ';');
+		while (cmd[i])
+		{
+			args = split_quotes(cmd[i], ' ');
+			args = format_args(args, env);
+			run = execute(args, builtin_lst, builtin_fct, &env);
+			i++;
+			free_tab(args);
+		}
+		free_tab(cmd);
+		ft_strdel(&line);
 	}
-	return (count % 2);
-}
-
-char *ask_newline(char *line)
-{
-	char *tmp1;
-	char *tmp2;
-
-	ft_putstr("> ");
-	get_next_line(0, &tmp1);
-	tmp2 = line;
-	line = ft_strjoin3(line, "\n", tmp1);
-	free(tmp2);
-	free(tmp1);
-	return (line);
+	return (0);
 }
 
 int main(int argc, char **argv, char **environ)
 {
-	char *line;
-	char **args;
 	char **env;
-	char **cmd;
-	int run;
-	int i;
 	t_built_in builtin_fct[NB_BUILTIN];
 	const char *builtin_lst[] = {
 		"cd",
@@ -89,37 +72,8 @@ int main(int argc, char **argv, char **environ)
 		"unsetenv"
 	};
 
-	run = 1;
-	fill_built(builtin_fct);
-	env = ft_tabdup(env, environ);
-	while (run)
-	{
-		i = 0;
-		print_prompt(env);
-		get_next_line(0, &line);
-		while (wrong_quote(line))
-			line = ask_newline(line);
-		cmd = split_quotes(line, ';');
-		while (cmd[i])
-		{
-		//	ft_putstr_color("cmd = ", "blue");
-		//	ft_putendl(cmd[i]);
-			args = split_quotes(cmd[i], ' ');
-			args = format_args(args, env);
-		/*	int j = 0;
-			while (args[j])
-			{
-				ft_putstr_color("arg = ", "red");
-				ft_putendl(args[j]);
-				j++;
-			}*/
-			run = execute(args, builtin_lst, builtin_fct, &env);
-			i++;
-			free_tab(args);
-		}
-		free_tab(cmd);
-		ft_strdel(&line);
-	}
+	env = init_shell(environ, builtin_fct);
+	run(env, builtin_fct, builtin_lst);
 	free_tab(env);
 	return (0);
 }

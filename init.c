@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 14:23:11 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:30:17 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/05 19:30:59 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,6 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 		ft_strdel(&shlvl);
 	}
 	else
-		env = ft_setvar(env, "SHLVL", "1");
+		env = ft_setvar(env, "SHLVL", "2");
 	return (env);
 }

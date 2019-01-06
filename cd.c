@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 17:40:08 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 19:20:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 15:07:23 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,13 @@ char *format_dir(char **args, char ***environ)
 	dir = NULL;
 	if (args[1] == NULL)
 	{
+	//	ft_putstr_color("cd ?\n", "blue");
 		if (!(var = ft_getenv(*environ, "HOME")))
+		{
+	//		ft_putstr_color("getenv ?\n", "blue");
+	//		ft_putendl(getpwuid(getuid())->pw_dir);
 			dir = ft_strdup(getpwuid(getuid())->pw_dir);
+		}
 		else
 			dir = ft_strdup(var[0]);
 		free_tab(var);
@@ -48,8 +53,10 @@ int ft_cd(char **args, char ***environ)
 	struct stat sb;
 
 	dir = format_dir(args, environ);
+//	ft_putendl(dir);
 	getcwd(buf, PATH_MAX);
-	*environ = ft_setvar(*environ, "OLDPWD", buf);
+	ft_setvar(environ, "OLDPWD", buf);
+//	ft_putstr_color("setvar ?\n", "green");
 	if (dir && lstat(dir, &sb) == 0)
 	{
 		if (access(dir, X_OK) != 0)
@@ -59,7 +66,7 @@ int ft_cd(char **args, char ***environ)
 	else if (dir)
 		error_file("cd", dir);
 	getcwd(buf, PATH_MAX);
-	*environ = ft_setvar(*environ, "PWD", buf);
+	ft_setvar(environ, "PWD", buf);
 	if (dir)
 		ft_strdel(&dir);
 	return (1);

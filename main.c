@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 18:16:10 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 15:03:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,8 @@ int main(int argc, char **argv, char **environ)
 	};
 
 	env = init_shell(environ, builtin_fct);
+//	printf("environ %p\n", environ[0]);
+//	ft_env(argv, &environ);
 	run(&env, builtin_fct, builtin_lst);
 	free_tab(env);
 	return (0);

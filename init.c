@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 14:23:11 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 19:30:59 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 15:01:40 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,9 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 	char **env;
 	char **var;
 	char *shlvl;
+	char **tmp;
 
+	env = NULL;
 	fill_built(builtin_fct);
 	if (!(env = ft_tabdup(env, environ)))
 		malloc_error();
@@ -37,10 +39,15 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 			ft_putstr_color("You appear to have launched a minishell inside another minishell.\n\
 	--Welcome to minishellception !--\n", "green");
 		shlvl = ft_itoa(ft_atoi(var[0]) + 1);
-		env = ft_setvar(env, "SHLVL", shlvl);
+		ft_setvar(&env, "SHLVL", shlvl);
+		free_tab(var);
 		ft_strdel(&shlvl);
 	}
 	else
-		env = ft_setvar(env, "SHLVL", "2");
+	{
+//		ft_putstr_color("setting SHLVL\n", "blue");
+		ft_setvar(&env, "SHLVL", "2");
+//		printf("env[1] = %p\n", env[1]);
+	}
 	return (env);
 }

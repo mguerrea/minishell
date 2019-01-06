@@ -6,32 +6,38 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 16:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 13:09:14 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 15:06:22 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**ft_setvar(char **environ, char *var, char *value)
+void	ft_setvar(char ***environ, char *var, char *value)
 {
 	int i;
 	char *str;
+	char *tmp;
 
 	i = 0;
-	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
+	while ((*environ)[i] && ft_strncmp((*environ)[i], var, ft_strlen(var)))
 		i++;
 	if (!(str = ft_strnew(ft_strlen(var) + ft_strlen(value) + 1)))
-		return (NULL);
+		return ;
 	ft_strcat(str, var);
 	ft_strcat(str, "=");
 	ft_strcat(str, value);
 //	printf("i = %d\n", i);
-	if (!environ[i])
-		environ = ft_addentry(environ, i, str);
+//	printf("environ[0] = %p\n", environ[0]);
+	if (!(*environ)[i])
+		*environ = ft_addentry(*environ, i, str);
 	else
-		environ[i] = ft_strdup(str);
+	{
+		ft_strdel(&((*environ)[i]));
+		(*environ)[i] = ft_strdup(str);
+	}
+//	printf("env[1] = %p\n", (*environ)[1]);
 	ft_strdel(&str);
-	return (environ);
+//	return (environ);
 }
 
 int		ft_setenv(char **args, char ***environ)
@@ -41,7 +47,7 @@ int		ft_setenv(char **args, char ***environ)
 		if (ft_strchr(args[1], '='))
 			ft_putendl("invalid name, cannot contain '='");
 		else
-			*environ = ft_setvar(*environ, args[1], args[2]);
+			ft_setvar(environ, args[1], args[2]);
 	}
 	else
 		ft_putendl("too few arguments");
@@ -75,6 +81,7 @@ char **ft_getenv(char **environ, char *var)
 	lst = NULL;
 	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
 		i++;
+//	ft_putnbr(i);
 	if (environ[i])
 		lst = ft_strsplit(ft_strchr(environ[i], '=') + 1, ':');
 //	printf("lst ?\n");

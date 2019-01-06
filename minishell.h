@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:46:04 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 18:33:40 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 13:26:58 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ int		ft_cd(char **args, char ***environ);
 int		ft_exit(char **args, char ***environ);
 int		ft_echo(char **args, char ***environ);
 int		ft_env(char **args, char ***environ);
-char	**ft_setvar(char **environ, char *var, char *value);
+void	ft_setvar(char ***environ, char *var, char *value);
 int		ft_setenv(char **args, char ***environ);
 char	**ft_tabdup(char **dest, char **src);
 char	**ft_getenv(char **environ, char *var);

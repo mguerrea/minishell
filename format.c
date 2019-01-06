@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 18:41:22 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 12:45:15 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int format_var(char **var, char **environ)
 
 }
 
-int format_tilde(char ***args, int i, char **environ)
+int format_tilde(char **args, char **environ)
 {
 	char **var;
 	char *temp;
@@ -59,9 +59,9 @@ int format_tilde(char ***args, int i, char **environ)
 		home = getpwuid(getuid())->pw_dir;
 	else
 		home = var[0];
-	temp = ft_strjoin(home, (*args)[i] + 1);
+	temp = ft_strjoin(home, (*args) + 1);
 //	ft_strdel(args[i]);
-	(*args)[i] = temp;
+	*args = temp;
 //	ft_strdel(&temp);
 //	free_tab(var);
 	return (1);
@@ -77,13 +77,12 @@ void format_args(char ***args, char **environ)
 	{
 		tmp = ft_strtrim((*args)[i]);
 		ft_strdel(&((*args)[i]));
+		if (tmp[0] == '~')
+			format_tilde(&tmp, environ);
 		(*args)[i] = ft_trimquotes(tmp);
 		ft_strdel(&tmp);
 		if ((*args)[i][0] == '$')
 			format_var(&((*args)[i]), environ);
-		else if ((*args)[i][0] == '~')
-			format_tilde(args, i, environ);
 		i++;
 	}
-//	return (args);
 }

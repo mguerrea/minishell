@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:54:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 17:40:46 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 15:05:52 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,9 +52,12 @@ int ft_env(char **args, char ***environ)
 	i = 0;
 	while ((*environ)[i])
 	{
-	//	ft_putnbr(i);
+//		ft_putstr("env : i = ");
+//		ft_putnbr(i);
+//		printf("env[i] = %p\n", (*environ)[i]);
 		ft_putendl((*environ)[i]);
 		i++;
 	}
+//	ft_putstr_color("hello\n", "blue");
 	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:46:04 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 13:26:58 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 18:54:17 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@
 # include "libft/libft.h"
 # include "get_next_line.h"
 # include <sys/stat.h>
-#include <sys/types.h>
-#include <pwd.h>
-#include <uuid/uuid.h>
+# include <sys/types.h>
+# include <pwd.h>
+# include <uuid/uuid.h>
 
-#define NB_BUILTIN 6
+# define NB_BUILTIN 6
 
 typedef int	(*t_built_in)(char **, char ***);
 
@@ -43,7 +43,7 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3);
 void	format_args(char ***args, char **environ);
 void	free_tab(char **tab);
 char	**split_quotes(char *line, char c);
-void 	error_file(char *cmd, char *errors);
+void	error_file(char *cmd, char *errors);
 char	**init_shell(char **environ, t_built_in *builin_fct);
 void	fill_built(t_built_in *builtin_fct);
 char	*get_cmd(char **env);

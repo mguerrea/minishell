@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/04 13:24:23 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/04 17:39:32 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:36:39 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,19 +52,17 @@ int		count_letters(char *line, char c)
 			quote++;
 		i++;
 	}
-//	printf("i = %d\n", i);
 	return (i);
 }
 
 char	**split_quotes(char *line, char c)
 {
-	char **cmd;
-	int j;
+	char	**cmd;
+	int		j;
 
 	j = 0;
 	if (!(cmd = (char **)malloc(sizeof(char *) * (count_quotes(line, c) + 1))))
 		return (NULL);
-//	printf("line a parser = %s\n", line);
 	while (*line)
 	{
 		while (*line == c)
@@ -72,30 +70,10 @@ char	**split_quotes(char *line, char c)
 		if (*line == '\0')
 			break ;
 		if (!(cmd[j] = ft_strsub((char *)line, 0, count_letters(line, c))))
-				return (NULL);
+			return (NULL);
 		line += (count_letters(line, c));
-//		printf("char = %c line = %s\n", c, line);
 		j++;
 	}
 	cmd[j] = NULL;
 	return (cmd);
 }
-
-/*char	**split_args(char *line)
-{
-	char **args;
-	int j;
-
-	j = 0;
-	if (!(cmd = (char **)malloc(sizeof(char *) * (count_cmd(line) + 1))))
-		return (NULL);
-	while (*line)
-	{
-		if (!(cmd[j] = ft_strsub((char *)line, 0, count_letters(line))))
-				return (NULL);
-		line += (count_letters(line) + 1);
-		j++;
-	}
-	cmd[j] = NULL;
-	return (cmd);
-}*/

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 16:07:32 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:35:10 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,14 @@
 void	print_prompt(char **environ)
 {
 	char buf[PATH_MAX];
-	char **home;
-	int len;
 
+	(void)environ;
 	getcwd(buf, PATH_MAX);
-//	if (home = ft_getenv(environ, "HOME"))
-/*	len = (home[0]) ? ft_strlen(home[0]) : 0;
-	if (home[0])
-		ft_putchar('~');
-	ft_putstr(buf + len); */
 	ft_putstr(ft_strrchr(buf, '/') + 1);
 	ft_putstr(" $> ");
-//	free_tab(home);
 }
 
-int	wrong_quote(char *str)
+int		wrong_quote(char *str)
 {
 	int i;
 	int count;
@@ -45,7 +38,7 @@ int	wrong_quote(char *str)
 	return (count % 2);
 }
 
-char *ask_newline(char *line)
+char	*ask_newline(char *line)
 {
 	char *tmp1;
 	char *tmp2;
@@ -59,7 +52,7 @@ char *ask_newline(char *line)
 	return (line);
 }
 
-char *get_cmd(char **env)
+char	*get_cmd(char **env)
 {
 	char *line;
 

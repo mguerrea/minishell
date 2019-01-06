@@ -6,26 +6,23 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:18:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 17:38:23 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 16:14:56 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void find_bin_path(char **environ, char **args)
+void	find_bin_path(char **environ, char **args, char **path_lst)
 {
-	char **path_lst;
-	int i;
-	char *path;
-	struct stat sb;
+	int			i;
+	char		*path;
+	struct stat	sb;
 
 	i = 0;
-	if (!(path_lst = ft_getenv(environ, "PATH")))
-		error_file(NULL, args[0]);
 	while (path_lst[i])
 	{
 		if (!(path = ft_strjoin3(path_lst[i], "/", args[0])))
-			return;
+			return ;
 		if (lstat(path, &sb) == 0)
 		{
 			if (access(path, X_OK) != 0)
@@ -43,14 +40,13 @@ void find_bin_path(char **environ, char **args)
 	free_tab(path_lst);
 }
 
-int launch_bin(char **args, char ***environ)
+int		launch_bin(char **args, char ***environ)
 {
-	pid_t pid;
-	int i;
+	pid_t	pid;
+	int		i;
+	char	**path_lst;
 
 	i = 0;
-	if (!args[0][0])
-		return (1);
 	pid = fork();
 	if (pid == -1)
 		ft_putendl_fd("fork error", 2);
@@ -61,9 +57,11 @@ int launch_bin(char **args, char ***environ)
 			if (execve(args[0], args, *environ) < 0)
 				error_cmd(args[0]);
 		}
+		else if ((path_lst = ft_getenv(*environ, "PATH")))
+			find_bin_path(*environ, args, path_lst);
 		else
-			find_bin_path(*environ, args);
-		exit (1);
+			error_file(NULL, args[0]);
+		exit(1);
 	}
 	else
 		wait(NULL);

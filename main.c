@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:37:54 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 15:03:24 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:29:10 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,10 +14,10 @@
 #include "get_next_line.h"
 #include "minishell.h"
 
-int execute(char **args, const char **builtin_lst, t_built_in *builtin_fct, char ***environ)
+int	execute(char **args, const char **builtin_lst,
+	t_built_in *builtin_fct, char ***environ)
 {
 	int i;
-	int ret;
 
 	i = 0;
 	if (args[0] == NULL)
@@ -33,11 +33,11 @@ int execute(char **args, const char **builtin_lst, t_built_in *builtin_fct, char
 
 int	run(char ***env, t_built_in *builtin_fct, const char **builtin_lst)
 {
-	char *line;
-	char **args;
-	char **cmd;
-	int run;
-	int i;
+	char	*line;
+	char	**args;
+	char	**cmd;
+	int		run;
+	int		i;
 
 	run = 1;
 	while (run)
@@ -59,11 +59,11 @@ int	run(char ***env, t_built_in *builtin_fct, const char **builtin_lst)
 	return (0);
 }
 
-int main(int argc, char **argv, char **environ)
+int	main(int argc, char **argv, char **environ)
 {
-	char **env;
-	t_built_in builtin_fct[NB_BUILTIN];
-	const char *builtin_lst[] = {
+	char		**env;
+	t_built_in	builtin_fct[NB_BUILTIN];
+	const char	*builtin_lst[] = {
 		"cd",
 		"exit",
 		"echo",
@@ -72,9 +72,9 @@ int main(int argc, char **argv, char **environ)
 		"unsetenv"
 	};
 
+	(void)argc;
+	(void)argv;
 	env = init_shell(environ, builtin_fct);
-//	printf("environ %p\n", environ[0]);
-//	ft_env(argv, &environ);
 	run(&env, builtin_fct, builtin_lst);
 	free_tab(env);
 	return (0);

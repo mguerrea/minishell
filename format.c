@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 12:45:15 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:34:10 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *ft_trimquotes(char *s)
+char	*ft_trimquotes(char *s)
 {
 	char	*str;
 	size_t	i;
@@ -35,21 +35,20 @@ char *ft_trimquotes(char *s)
 	return (str);
 }
 
-int format_var(char **var, char **environ)
+int		format_var(char **var, char **environ)
 {
 	char **value;
 
 	if (!(value = ft_getenv(environ, *(var) + 1)))
 		return (-1);
 	ft_strdel(var);
-	if(!(*var = ft_strdup(value[0])))
+	if (!(*var = ft_strdup(value[0])))
 		return (-1);
 	free_tab(value);
 	return (1);
-
 }
 
-int format_tilde(char **args, char **environ)
+int		format_tilde(char **args, char **environ)
 {
 	char **var;
 	char *temp;
@@ -60,17 +59,14 @@ int format_tilde(char **args, char **environ)
 	else
 		home = var[0];
 	temp = ft_strjoin(home, (*args) + 1);
-//	ft_strdel(args[i]);
 	*args = temp;
-//	ft_strdel(&temp);
-//	free_tab(var);
 	return (1);
 }
 
-void format_args(char ***args, char **environ)
+void	format_args(char ***args, char **environ)
 {
-	int i;
-	char *tmp;
+	int		i;
+	char	*tmp;
 
 	i = 0;
 	while ((*args)[i])

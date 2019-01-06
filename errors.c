@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:56:10 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/05 17:37:28 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:32:14 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ void	error_file(char *cmd, char *errors)
 		ft_putstr_fd(cmd, 2);
 		ft_putstr_fd(": ", 2);
 	}
-		ft_putstr_fd(errors, 2);
-		ft_putstr_fd(": No such file or directory\n", 2);
+	ft_putstr_fd(errors, 2);
+	ft_putstr_fd(": No such file or directory\n", 2);
 }
 
 void	error_cmd(char *str)

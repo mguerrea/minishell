@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 16:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 15:06:22 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:27:13 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,8 @@
 
 void	ft_setvar(char ***environ, char *var, char *value)
 {
-	int i;
-	char *str;
-	char *tmp;
+	int		i;
+	char	*str;
 
 	i = 0;
 	while ((*environ)[i] && ft_strncmp((*environ)[i], var, ft_strlen(var)))
@@ -26,8 +25,6 @@ void	ft_setvar(char ***environ, char *var, char *value)
 	ft_strcat(str, var);
 	ft_strcat(str, "=");
 	ft_strcat(str, value);
-//	printf("i = %d\n", i);
-//	printf("environ[0] = %p\n", environ[0]);
 	if (!(*environ)[i])
 		*environ = ft_addentry(*environ, i, str);
 	else
@@ -35,9 +32,7 @@ void	ft_setvar(char ***environ, char *var, char *value)
 		ft_strdel(&((*environ)[i]));
 		(*environ)[i] = ft_strdup(str);
 	}
-//	printf("env[1] = %p\n", (*environ)[1]);
 	ft_strdel(&str);
-//	return (environ);
 }
 
 int		ft_setenv(char **args, char ***environ)
@@ -61,7 +56,8 @@ int		ft_unsetenv(char **args, char ***environ)
 	i = 0;
 	if (args[1])
 	{
-		while ((*environ)[i] && ft_strncmp((*environ)[i], args[1], ft_strlen(args[1])))
+		while ((*environ)[i] && ft_strncmp((*environ)[i], args[1],
+			ft_strlen(args[1])))
 			i++;
 		if ((*environ)[i])
 			ft_delentry(environ, i);
@@ -69,21 +65,16 @@ int		ft_unsetenv(char **args, char ***environ)
 	return (1);
 }
 
-char **ft_getenv(char **environ, char *var)
+char	**ft_getenv(char **environ, char *var)
 {
-	int i;
-	char **lst;
-	int start;
-	int size;
-	int end;
+	int		i;
+	char	**lst;
 
 	i = 0;
 	lst = NULL;
 	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
 		i++;
-//	ft_putnbr(i);
 	if (environ[i])
 		lst = ft_strsplit(ft_strchr(environ[i], '=') + 1, ':');
-//	printf("lst ?\n");
 	return (lst);
 }

@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 14:23:11 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 15:01:40 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:21:55 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,6 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 	char **env;
 	char **var;
 	char *shlvl;
-	char **tmp;
 
 	env = NULL;
 	fill_built(builtin_fct);
@@ -36,7 +35,8 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 	if ((var = ft_getenv(env, "SHLVL")) && var[0])
 	{
 		if (ft_strcmp(var[0], "1"))
-			ft_putstr_color("You appear to have launched a minishell inside another minishell.\n\
+			ft_putstr_color("You appear to have launched a minishell \
+inside another minishell.\n\
 	--Welcome to minishellception !--\n", "green");
 		shlvl = ft_itoa(ft_atoi(var[0]) + 1);
 		ft_setvar(&env, "SHLVL", shlvl);
@@ -44,10 +44,6 @@ char	**init_shell(char **environ, t_built_in *builtin_fct)
 		ft_strdel(&shlvl);
 	}
 	else
-	{
-//		ft_putstr_color("setting SHLVL\n", "blue");
 		ft_setvar(&env, "SHLVL", "2");
-//		printf("env[1] = %p\n", env[1]);
-	}
 	return (env);
 }

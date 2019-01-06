@@ -6,13 +6,13 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 17:40:08 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 15:07:23 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/06 17:21:44 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char *format_dir(char **args, char ***environ)
+char	*format_dir(char **args, char ***environ)
 {
 	char *dir;
 	char **var;
@@ -20,13 +20,8 @@ char *format_dir(char **args, char ***environ)
 	dir = NULL;
 	if (args[1] == NULL)
 	{
-	//	ft_putstr_color("cd ?\n", "blue");
 		if (!(var = ft_getenv(*environ, "HOME")))
-		{
-	//		ft_putstr_color("getenv ?\n", "blue");
-	//		ft_putendl(getpwuid(getuid())->pw_dir);
 			dir = ft_strdup(getpwuid(getuid())->pw_dir);
-		}
 		else
 			dir = ft_strdup(var[0]);
 		free_tab(var);
@@ -45,18 +40,15 @@ char *format_dir(char **args, char ***environ)
 	return (dir);
 }
 
-int ft_cd(char **args, char ***environ)
+int		ft_cd(char **args, char ***environ)
 {
-	char *dir;
-	char buf[PATH_MAX];
-	char *home;
-	struct stat sb;
+	char		*dir;
+	char		buf[PATH_MAX];
+	struct stat	sb;
 
 	dir = format_dir(args, environ);
-//	ft_putendl(dir);
 	getcwd(buf, PATH_MAX);
 	ft_setvar(environ, "OLDPWD", buf);
-//	ft_putstr_color("setvar ?\n", "green");
 	if (dir && lstat(dir, &sb) == 0)
 	{
 		if (access(dir, X_OK) != 0)

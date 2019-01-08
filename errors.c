@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:56:10 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 17:32:14 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 11:42:42 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,11 @@ void	malloc_error(void)
 {
 	ft_putendl_fd("malloc error, abort program", 2);
 	exit(EXIT_FAILURE);
+}
+
+int		error_args(char *cmd)
+{
+	ft_putstr_fd(cmd, 2);
+	ft_putendl_fd(": too many arguments", 2);
+	return (1);
 }

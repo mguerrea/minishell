@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/05 17:40:08 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 17:21:44 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 11:39:19 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int		ft_cd(char **args, char ***environ)
 	char		buf[PATH_MAX];
 	struct stat	sb;
 
+	if (args[1] && args[2])
+		return (error_args("cd"));
 	dir = format_dir(args, environ);
 	getcwd(buf, PATH_MAX);
 	ft_setvar(environ, "OLDPWD", buf);

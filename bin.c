@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 19:18:45 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 16:14:56 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 11:58:58 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int		launch_bin(char **args, char ***environ)
 		else if ((path_lst = ft_getenv(*environ, "PATH")))
 			find_bin_path(*environ, args, path_lst);
 		else
-			error_file(NULL, args[0]);
+			error_cmd(args[0]);
 		exit(1);
 	}
 	else

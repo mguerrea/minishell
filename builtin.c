@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 15:54:28 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 17:20:57 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 12:07:50 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,14 +49,27 @@ int	ft_echo(char **args, char ***environ)
 
 int	ft_env(char **args, char ***environ)
 {
-	int i;
+	int		i;
+	char	**tmp;
 
-	(void)args;
 	i = 0;
-	while ((*environ)[i])
+	if (args[1] == NULL)
 	{
-		ft_putendl((*environ)[i]);
-		i++;
+		while ((*environ)[i])
+			ft_putendl((*environ)[i++]);
+	}
+	else
+	{
+		if (ft_strcmp(args[1], "-i") == 0)
+		{
+			if (!(tmp = (char **)malloc(sizeof(char *))))
+				malloc_error();
+			tmp[0] = NULL;
+			launch_bin(&args[2], &tmp);
+			free(tmp);
+		}
+		else
+			launch_bin(&args[1], environ);
 	}
 	return (1);
 }

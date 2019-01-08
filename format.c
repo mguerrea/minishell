@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/08 13:11:47 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:50:53 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,9 @@ int		format_tilde(char **args, char **environ)
 	else
 		home = var[0];
 	temp = ft_strjoin(home, (*args) + 1);
+	free(*args);
 	*args = temp;
+	free_tab(var);
 	return (1);
 }
 

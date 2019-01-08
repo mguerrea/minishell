@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 22:07:24 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 17:34:10 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:11:47 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int		format_var(char **var, char **environ)
 	if (!(value = ft_getenv(environ, *(var) + 1)))
 		return (-1);
 	ft_strdel(var);
-	if (!(*var = ft_strdup(value[0])))
+	if (!(*var = ft_strjointab(value, ':')))
 		return (-1);
 	free_tab(value);
 	return (1);

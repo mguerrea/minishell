@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 17:58:37 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 16:00:04 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:34:24 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,5 +78,28 @@ char	*ft_strjoin3(char *s1, char *s2, char *s3)
 	str = ft_strcat(str, s1);
 	str = ft_strcat(str, s2);
 	str = ft_strcat(str, s3);
+	return (str);
+}
+
+char	*ft_strjointab(char **tab, char c)
+{
+	int		i;
+	int		len;
+	char	*str;
+
+	i = 0;
+	len = 0;
+	while (tab[i])
+		len += ft_strlen(tab[i++]);
+	if (!(str = ft_strnew(len + i - 1)))
+		return (NULL);
+	i = 0;
+	while (tab[i])
+	{
+		ft_strcat(str, tab[i]);
+		if (tab[i + 1])
+			str[ft_strlen(str)] = c;
+		i++;
+	}
 	return (str);
 }

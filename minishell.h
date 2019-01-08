@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 14:46:04 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/08 11:42:32 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:09:56 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,6 @@ void	malloc_error(void);
 void	error_rights(char *cmd, char *str);
 void	error_cmd(char *str);
 int		error_args(char *cmd);
+char	*ft_strjointab(char **tab, char c);
 
 #endif

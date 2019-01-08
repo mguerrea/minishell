@@ -6,7 +6,7 @@
 /*   By: mguerrea <mguerrea@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/01/03 16:45:44 by mguerrea          #+#    #+#             */
-/*   Updated: 2019/01/06 17:27:13 by mguerrea         ###   ########.fr       */
+/*   Updated: 2019/01/08 13:34:02 by mguerrea         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,10 +69,13 @@ char	**ft_getenv(char **environ, char *var)
 {
 	int		i;
 	char	**lst;
+	int		len;
 
 	i = 0;
 	lst = NULL;
-	while (environ[i] && ft_strncmp(environ[i], var, ft_strlen(var)))
+	len = ft_strlen(var);
+	while (environ[i] && (ft_strncmp(environ[i], var, len)
+		|| environ[i][len] != '='))
 		i++;
 	if (environ[i])
 		lst = ft_strsplit(ft_strchr(environ[i], '=') + 1, ':');
